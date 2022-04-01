@@ -32,7 +32,7 @@ const kittenData_3 = {
   image:
     'https://images.emedicinehealth.com/images/article/main_image/cat-scratch-disease.jpg',
   name: 'Cielo',
-  desc: 'Ruiseño, juguetón, le guta estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!',
+  desc: 'Ruiseño, juguetón, le  estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!',
   race: 'British Shorthair',
 };
 
@@ -118,7 +118,18 @@ function filterKitten(event) {
 //Mostrar el litado de gatitos en ell HTML
 renderKittenList(kittenDataList);
 
-//2. Agregar un nuevo gatito al listado
+//2.--------------- Agregar un nuevo gatito al listado
+
+function cleanValues(inputDesc, inputPhoto, inputName, inputRace) {
+  inputDesc.value = '';
+  inputPhoto.value = '';
+  inputName.value = '';
+  inputRace.value = '';
+}
+function mesageError(){
+  labelMesageError.innerHTML = 'Mola! Un nuevo gatito en Adalab!';
+}
+
 function addNewKitten(event) {
   event.preventDefault();
   const valueDesc = inputDesc.value;
@@ -144,17 +155,22 @@ function addNewKitten(event) {
 
   kittenDataList.push(newKittenDataObject);
   renderKittenList(kittenDataList);
+  cleanValues(inputDesc, inputPhoto, inputName, inputRace);
+  mesageError();
 }
 
-function cleanValues(inputDesc, inputPhoto, inputName, inputRace) {
-  inputDesc.value = '';
-  inputPhoto.value = '';
-  inputName.value = '';
-  inputRace.value = '';
+function filterKittenDesc() {
+  const searchDesc = input_search_desc.value;
+  const dataFiltered = kittenDataList
+  .filter((cat) => cat.desc.toLowerCase().includes(searchDesc.toLowerCase()));
+  renderKittenList(dataFiltered)
 }
+
+
 
 //Eventos
 linkNewFormElememt.addEventListener('click', handleClickNewCatForm);
 searchButton.addEventListener('click', filterKitten);
+input_search_desc.addEventListener('keyup', filterKittenDesc);
 buttonAdd.addEventListener('click', addNewKitten);
 buttonCancelForm.addEventListener('click', cancelNewKitten);
