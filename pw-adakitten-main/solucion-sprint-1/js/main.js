@@ -1,39 +1,39 @@
-'use strict';
+"use strict";
 
 /* Elementos que usamos en el HTML */
-const newFormElement = document.querySelector('.js-new-form');
-const listElement = document.querySelector('.js-list');
-const searchButton = document.querySelector('.js-button-search');
-const buttonAdd = document.querySelector('.js-btn-add');
-const buttonCancelForm = document.querySelector('.js-btn-cancel');
-const inputDesc = document.querySelector('.js-input-desc');
-const inputPhoto = document.querySelector('.js-input-photo');
-const inputName = document.querySelector('.js-input-name');
-const inputRace = document.querySelector('.js-input-race');
-const linkNewFormElememt = document.querySelector('.js-button-new-form');
-const labelMesageError = document.querySelector('.js-label-error');
-const input_search_desc = document.querySelector('.js_in_search_desc');
+const newFormElement = document.querySelector(".js-new-form");
+const listElement = document.querySelector(".js-list");
+const searchButton = document.querySelector(".js-button-search");
+const buttonAdd = document.querySelector(".js-btn-add");
+const buttonCancelForm = document.querySelector(".js-btn-cancel");
+const inputDesc = document.querySelector(".js-input-desc");
+const inputPhoto = document.querySelector(".js-input-photo");
+const inputName = document.querySelector(".js-input-name");
+const inputRace = document.querySelector(".js-input-race");
+const linkNewFormElememt = document.querySelector(".js-button-new-form");
+const labelMesageError = document.querySelector(".js-label-error");
+const input_search_desc = document.querySelector(".js_in_search_desc");
 
 //Objetos con cada gatito
 const kittenData_1 = {
-  image: 'https://ychef.files.bbci.co.uk/976x549/p07ryyyj.jpg',
-  name: 'Anastacio',
-  desc: 'Ruiseño, juguetón, le guta estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!',
-  race: 'British Shorthair',
+  image: "https://ychef.files.bbci.co.uk/976x549/p07ryyyj.jpg",
+  name: "Anastacio",
+  desc: "Ruiseño, juguetón, le guta estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!",
+  race: "British Shorthair",
 };
 const kittenData_2 = {
   image:
-    'https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2019_39/3021711/190923-cat-pet-stock-cs-1052a.jpg',
-  name: 'Fiona',
-  desc: 'Juguetón, le guta estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!',
-  race: 'British Shorthair',
+    "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2019_39/3021711/190923-cat-pet-stock-cs-1052a.jpg",
+  name: "Fiona",
+  desc: "Juguetón, le guta estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!",
+  race: "British Shorthair",
 };
 const kittenData_3 = {
   image:
-    'https://images.emedicinehealth.com/images/article/main_image/cat-scratch-disease.jpg',
-  name: 'Cielo',
-  desc: 'Ruiseño, juguetón, le  estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!',
-  race: 'British Shorthair',
+    "https://images.emedicinehealth.com/images/article/main_image/cat-scratch-disease.jpg",
+  name: "Cielo",
+  desc: "Ruiseño, juguetón, le  estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!",
+  race: "British Shorthair",
 };
 
 const kittenDataList = [kittenData_1, kittenData_2, kittenData_3];
@@ -58,7 +58,7 @@ function renderKitten(kittenData) {
 }
 
 function renderKittenList(kittenDataList) {
-  listElement.innerHTML = '';
+  listElement.innerHTML = "";
   for (const kittenItem of kittenDataList) {
     listElement.innerHTML += renderKitten(kittenItem);
   }
@@ -66,15 +66,15 @@ function renderKittenList(kittenDataList) {
 
 //Mostrar/ocultar el formulario
 function showNewCatForm() {
-  newFormElement.classList.remove('collapsed');
+  newFormElement.classList.remove("collapsed");
 }
 function hideNewCatForm() {
-  newFormElement.classList.add('collapsed');
+  newFormElement.classList.add("collapsed");
 }
 
 function handleClickNewCatForm(event) {
   event.preventDefault();
-  if (newFormElement.classList.contains('collapsed')) {
+  if (newFormElement.classList.contains("collapsed")) {
     showNewCatForm();
   } else {
     hideNewCatForm();
@@ -97,17 +97,17 @@ function handleClickNewCatForm(event) {
 //Cancelar la búsqueda de un gatito
 function cancelNewKitten(event) {
   event.preventDefault();
-  newFormElement.classList.add('collapsed');
-  inputDesc.value = '';
-  inputPhoto.value = '';
-  inputName.value = '';
+  newFormElement.classList.add("collapsed");
+  inputDesc.value = "";
+  inputPhoto.value = "";
+  inputName.value = "";
 }
 
 //Filtrar por descripción
 function filterKitten(event) {
   event.preventDefault();
   const descrSearchText = input_search_desc.value;
-  listElement.innerHTML = '';
+  listElement.innerHTML = "";
   for (const kittenItem of kittenDataList) {
     if (kittenItem.desc.includes(descrSearchText)) {
       listElement.innerHTML += renderKitten(kittenItem);
@@ -121,13 +121,13 @@ renderKittenList(kittenDataList);
 //2.--------------- Agregar un nuevo gatito al listado
 
 function cleanValues(inputDesc, inputPhoto, inputName, inputRace) {
-  inputDesc.value = '';
-  inputPhoto.value = '';
-  inputName.value = '';
-  inputRace.value = '';
+  inputDesc.value = "";
+  inputPhoto.value = "";
+  inputName.value = "";
+  inputRace.value = "";
 }
-function mesageError(){
-  labelMesageError.innerHTML = 'Mola! Un nuevo gatito en Adalab!';
+function mesageError() {
+  labelMesageError.innerHTML = "Mola! Un nuevo gatito en Adalab!";
 }
 
 function addNewKitten(event) {
@@ -137,11 +137,11 @@ function addNewKitten(event) {
   const valueName = inputName.value;
   const valueRace = inputRace.value;
 
-  if (valueDesc === '' && valuePhoto === '' && valueName === '') {
-    labelMesageError.innerHTML = 'Debe rellenar todos los valores';
+  if (valueDesc === "" && valuePhoto === "" && valueName === "") {
+    labelMesageError.innerHTML = "Debe rellenar todos los valores";
   } else {
-    if (valueDesc !== '' && valuePhoto !== '' && valueName !== '') {
-      labelMesageError.innerHTML = '';
+    if (valueDesc !== "" && valuePhoto !== "" && valueName !== "") {
+      labelMesageError.innerHTML = "";
     }
   }
   const newKittenDataObject =
@@ -161,16 +161,32 @@ function addNewKitten(event) {
 
 function filterKittenDesc() {
   const searchDesc = input_search_desc.value;
-  const dataFiltered = kittenDataList
-  .filter((cat) => cat.desc.toLowerCase().includes(searchDesc.toLowerCase()));
-  renderKittenList(dataFiltered)
+  const dataFiltered = kittenDataList.filter((cat) =>
+    cat.desc.toLowerCase().includes(searchDesc.toLowerCase())
+  );
+  renderKittenList(dataFiltered);
 }
 
+//-----desde aqui
 
+function filterKitten(ev) {
+  //Completa el código:
+  const searchDesc = input_search_desc.value;
+  const searchRace = input_search_race.value;
+  const dataFiltered = kittenDataList;
+  //Haz un filter anidado sobre el listado de gatitos
+  const kittenListFiltered = kittenDataList
+    .filter((cat) => cat.desc.toLowerCase().includes(searchDesc.toLowerCase()))
+    .filter((cat) => cat.race.toLowerCase().includes(searchRace.toLowerCase()));
+  //Vuelve a pintar el listado de gatitos filtrados en el HTML.
+  renderKittenList(kittenListFiltered);
+}
+
+//--hasta aqui
 
 //Eventos
-linkNewFormElememt.addEventListener('click', handleClickNewCatForm);
-searchButton.addEventListener('click', filterKitten);
-input_search_desc.addEventListener('keyup', filterKittenDesc);
-buttonAdd.addEventListener('click', addNewKitten);
-buttonCancelForm.addEventListener('click', cancelNewKitten);
+linkNewFormElememt.addEventListener("click", handleClickNewCatForm);
+searchButton.addEventListener("click", filterKitten);
+input_search_desc.addEventListener("keyup", filterKittenDesc);
+buttonAdd.addEventListener("click", addNewKitten);
+buttonCancelForm.addEventListener("click", cancelNewKitten);
