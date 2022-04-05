@@ -13,13 +13,14 @@ const inputRace = document.querySelector(".js-input-race");
 const linkNewFormElememt = document.querySelector(".js-button-new-form");
 const labelMesageError = document.querySelector(".js-label-error");
 const input_search_desc = document.querySelector(".js_in_search_desc");
+const input_search_race = document.querySelector(".js_in_search_race");
 
 //Objetos con cada gatito
 const kittenData_1 = {
   image: "https://ychef.files.bbci.co.uk/976x549/p07ryyyj.jpg",
   name: "Anastacio",
   desc: "Ruiseño, juguetón, le guta estar tranquilo y que nadie le moleste. Es una maravilla acariciarle!",
-  race: "British Shorthair",
+  race: "Raza gatito",
 };
 const kittenData_2 = {
   image:
@@ -36,7 +37,7 @@ const kittenData_3 = {
   race: "British Shorthair",
 };
 
-const kittenDataList = [kittenData_1, kittenData_2, kittenData_3];
+let kittenDataList = [];
 
 //Funciones
 function renderKitten(kittenData) {
@@ -116,7 +117,6 @@ function filterKitten(event) {
 }
 
 //Mostrar el litado de gatitos en ell HTML
-renderKittenList(kittenDataList);
 
 //2.--------------- Agregar un nuevo gatito al listado
 
@@ -159,34 +159,48 @@ function addNewKitten(event) {
   mesageError();
 }
 
-function filterKittenDesc() {
-  const searchDesc = input_search_desc.value;
-  const dataFiltered = kittenDataList.filter((cat) =>
-    cat.desc.toLowerCase().includes(searchDesc.toLowerCase())
-  );
-  renderKittenList(dataFiltered);
-}
-
-//-----desde aqui
-
-function filterKitten(ev) {
+function filterKitten(event) {
+  event.preventDefault();
   //Completa el código:
+  //Haz un filter anidado sobre el listado de gatitos
   const searchDesc = input_search_desc.value;
   const searchRace = input_search_race.value;
-  const dataFiltered = kittenDataList;
-  //Haz un filter anidado sobre el listado de gatitos
   const kittenListFiltered = kittenDataList
+
     .filter((cat) => cat.desc.toLowerCase().includes(searchDesc.toLowerCase()))
     .filter((cat) => cat.race.toLowerCase().includes(searchRace.toLowerCase()));
   //Vuelve a pintar el listado de gatitos filtrados en el HTML.
   renderKittenList(kittenListFiltered);
 }
 
-//--hasta aqui
-
 //Eventos
 linkNewFormElememt.addEventListener("click", handleClickNewCatForm);
 searchButton.addEventListener("click", filterKitten);
-input_search_desc.addEventListener("keyup", filterKittenDesc);
+//input_search_desc.addEventListener('keyup', filterKittenDesc);
 buttonAdd.addEventListener("click", addNewKitten);
 buttonCancelForm.addEventListener("click", cancelNewKitten);
+
+//----------------Peticiones al servidor---------------
+const GITHUB_USER = "pradocarretero";
+const SERVER_URL = `https://adalab-api.herokuapp.com/api/kittens/${GITHUB_USER}`;
+
+fetch(SERVER_URL, {
+  method: "GET",
+  headers: { "Content-Type": "application/json" },
+})
+  .then(function (response) {
+    return response.json();
+  })
+  .then((data) => {
+    kittenDataList = data.results.map((cat) => {
+      const newCat = {
+        image: cat.url,
+        name: cat.name,
+        desc: cat.desc,
+        race: cat.race,
+      };
+      return newCat;
+    });
+    console.log(kittenDataList);
+    renderKittenList(kittenDataList);
+  });
